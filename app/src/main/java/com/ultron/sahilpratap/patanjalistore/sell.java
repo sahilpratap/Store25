@@ -59,9 +59,14 @@ public class sell extends AppCompatActivity {
                     int id = Integer.parseInt(e1.getText().toString());
                     int position = (product.getProductId()).indexOf(id);
 
-                    int q = Integer.parseInt(e3.getText().toString());
-                    Double price = q*(product.getProductPrice().get(position));
-                    e4.setText(price.toString());
+                    if(e3.getText().toString().equals("")){
+                        Toast.makeText(sell.this,"Please enter the quantity",Toast.LENGTH_LONG).show();
+                    }else {
+                        int q = Integer.parseInt(e3.getText().toString());
+                        Double price = q * (product.getProductPrice().get(position));
+                        e4.setText(price.toString());
+                    }
+
                 }
             });
 
@@ -70,24 +75,27 @@ public class sell extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    int q = Integer.parseInt(e3.getText().toString());
-                    int id = Integer.parseInt(e1.getText().toString());
-                    int position = (product.getProductId()).indexOf(id);
+                    if(e3.getText().toString().equals("")){
+                        Toast.makeText(sell.this,"Please enter the quantity",Toast.LENGTH_LONG).show();
 
-                    ArrayList<Integer> qnty = product.getProductQuantity();
-                    int n = qnty.get(position);
-                    qnty.set(position,(n-q));
-                    if(product.getProductQuantity().get(position)==0)
-                    {
-                        product.getProductQuantity().remove(position);
-                        product.getProductName().remove(position);
-                        product.getProductPrice().remove(position);
-                        product.getProductId().remove(position);
+                    }else {
+                        int q = Integer.parseInt(e3.getText().toString());
+                        int id = Integer.parseInt(e1.getText().toString());
+                        int position = (product.getProductId()).indexOf(id);
+
+                        ArrayList<Integer> qnty = product.getProductQuantity();
+                        int n = qnty.get(position);
+                        qnty.set(position, (n - q));
+                        if (product.getProductQuantity().get(position) == 0) {
+                            product.getProductQuantity().remove(position);
+                            product.getProductName().remove(position);
+                            product.getProductPrice().remove(position);
+                            product.getProductId().remove(position);
+                        }
+
+
+                        Toast.makeText(sell.this, "Your item succesfully sold!", Toast.LENGTH_LONG).show();
                     }
-
-
-                    Toast.makeText(sell.this,"Your item succesfully sold!",Toast.LENGTH_LONG).show();
-
 
 
                 }
